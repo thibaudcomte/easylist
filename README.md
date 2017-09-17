@@ -1,2 +1,5 @@
 # easylist
-A web app to choose cooking recipes and shop for their ingredients at selected pickup grocery stores.
+
+Concept d'application web/mobile permettant de choisir des recettes de cuisine et d'importer les ingrédients à des sites de commerce en ligne "drive" définis par l'utilisateur final.
+
+Ce projet est en phase de prototypage, et est fourni tel quel.
