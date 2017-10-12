@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="EasyList.Proto.Views.MenuView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:design="using:EasyList.Proto.DesignData"
+    xmlns:local="using:EasyList.Proto.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:vm="using:EasyList.Proto.ViewModels"
+    prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource AppBarBackgroundThemeBrush}" DataContext="{x:Bind ConcreteDataContext}">
+        <ListView
+            Margin="0,48,0,0"
+            IsTabStop="False"
+            ItemsSource="{x:Bind ConcreteDataContext.MenuItems}"
+            SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vm:MenuViewItem">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon Glyph="{x:Bind FontIcon}" Style="{StaticResource SplitViewMenuFontIconStyle}" />
+                        <TextBlock Style="{StaticResource SplitViewMenuItemTextStyle}" Text="{x:Bind Title, Mode=OneWay}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
