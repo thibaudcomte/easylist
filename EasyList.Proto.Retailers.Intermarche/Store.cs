@@ -1,6 +1,7 @@
-﻿using System.Diagnostics;
+﻿using EasyList.Proto.Core.Retailers;
+using System.Diagnostics;
 
-namespace EasyList.Proto.Core.Retailers.Intermarche
+namespace EasyList.Proto.Retailers.Intermarche
 {
     [DebuggerDisplay("{Id} {Name} {City}")]
     public class Store : IStore

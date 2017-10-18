@@ -73,7 +73,7 @@
                         Margin="20,0,0,0"
                         ItemsSource="{x:Bind ConcreteDataContext.Recipe.Ingredients}">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="core:Ingredient">
+                            <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource IngredientToTextConverter}}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

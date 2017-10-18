@@ -23,25 +23,25 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:AdaptiveHeaderedContent Header="Liste des courses">
             <ScrollViewer>
-                <ItemsControl ItemsSource="{x:Bind ConcreteDataContext.ShoppingList}">
+                <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ShoppingList}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="core:ShoppingListItem">
-                            <Grid>
+                        <DataTemplate>
+                            <Grid Width="500">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center" Text="{x:Bind Ingredient.Name, Mode=OneTime}" />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Ingredient.Name, Mode=OneTime}" />
                                 <TextBlock
                                     Grid.Column="1"
                                     Margin="24,0,0,0"
                                     VerticalAlignment="Center"
-                                    Text="{x:Bind OrderAmount, Mode=OneWay}" />
+                                    Text="{Binding OrderAmount, Mode=OneWay}" />
                                 <ToggleSwitch
                                     Grid.Column="2"
                                     Margin="24,0,0,0"
-                                    IsOn="{x:Bind IsIncluded, Mode=TwoWay}"
+                                    IsOn="{Binding IsIncluded, Mode=TwoWay}"
                                     OffContent="J'en ai déjà"
                                     OnContent="J'en commande" />
                             </Grid>

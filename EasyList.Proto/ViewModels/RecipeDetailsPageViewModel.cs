@@ -2,7 +2,6 @@
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EasyList.Proto.ViewModels
 {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2C66A970-D809-4467-8016-40ED4119A2CD}</ProjectGuid>
+    <ProjectGuid>{38CD8F34-E297-43E8-A3DE-0C4C76B2464C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyList.Proto.Controls</RootNamespace>
-    <AssemblyName>EasyList.Proto.Controls</AssemblyName>
+    <RootNamespace>EasyList.Proto.Core.Uwp</RootNamespace>
+    <AssemblyName>EasyList.Proto.Core.Uwp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
@@ -106,20 +106,22 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AdaptiveHeaderedContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\EasyList.Proto.Controls.rd.xml" />
+    <Compile Include="Storage\LocalStorage\LocalStorageReader.cs" />
+    <Compile Include="Storage\LocalStorage\LocalStorageReaderWriter.cs" />
+    <Compile Include="Storage\LocalStorage\LocalStorageWriter.cs" />
+    <EmbeddedResource Include="Properties\EasyList.Proto.Core.Uwp.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyList.Proto.Core\EasyList.Proto.Core.csproj">
+      <Project>{edc5f38a-dc68-4ae0-b508-ad5d0552f634}</Project>
+      <Name>EasyList.Proto.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

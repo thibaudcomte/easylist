@@ -1,55 +1,73 @@
-﻿using EasyList.Proto.Core.Shopping;
+﻿using EasyList.Proto.Core.Retailers;
+using EasyList.Proto.Core.Shopping;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Windows.Mvvm;
-using System;
+using Prism.Windows.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Prism.Windows.Navigation;
-using EasyList.Proto.Core.Retailers;
 using System.Windows.Input;
-using Prism.Commands;
 
 namespace EasyList.Proto.ViewModels
 {
+    class RetailerShoppingSessionInfo
+    {
+        public IRetailerShoppingSession RetailerShoppingSession { get; }
+        public PricedShoppingList PricedShoppingList { get; }
+
+        public RetailerShoppingSessionInfo(IRetailerShoppingSession retailerShoppingSession, ShoppingList shoppingList)
+        {
+            RetailerShoppingSession = retailerShoppingSession;
+            PricedShoppingList = new PricedShoppingList(shoppingList, retailerShoppingSession.Store);
+        }
+
+        public Task PriceShoppingListAsync()
+        {
+            return RetailerShoppingSession.PriceShoppingListAsync(PricedShoppingList);
+        }
+    }
+
     class PricingPageViewModel : ViewModelBase
     {
-        public ObservableCollection<PricedShoppingList> PricedShoppingListList { get; }
+        public ObservableCollection<RetailerShoppingSessionInfo> RetailerShoppingSessionInfos { get; }
 
-        private PricedShoppingList _SelectedPriceShoppingList;
-        public PricedShoppingList SelectedPriceShoppingList
+        private RetailerShoppingSessionInfo _SelectedRetailerShoppingSessionInfo;
+        public RetailerShoppingSessionInfo SelectedRetailerShoppingSessionInfo
         {
-            get { return _SelectedPriceShoppingList; }
-            set { SetProperty(ref _SelectedPriceShoppingList, value); }
+            get { return _SelectedRetailerShoppingSessionInfo; }
+            set { SetProperty(ref _SelectedRetailerShoppingSessionInfo, value); }
         }
 
         public ICommand GoToOnlineShoppingCartCommand { get; }
 
         public PricingPageViewModel(ShoppingFacade shoppingFacade, RetailersFacade retailersFacade, INavigationService navigationService)
         {
-            PricedShoppingListList = new ObservableCollection<PricedShoppingList>();
+            RetailerShoppingSessionInfos = new ObservableCollection<RetailerShoppingSessionInfo>();
 
             foreach (var store in retailersFacade.UserStoresContainer)
             {
-                PricedShoppingListList.Add(new PricedShoppingList(shoppingFacade.ShoppingList, store));
+                RetailerShoppingSessionInfos.Add(new RetailerShoppingSessionInfo(
+                    store.Retailer.Shopper.CreateRetailerShoppingSession(store), shoppingFacade.ShoppingList));
             }
 
             GoToOnlineShoppingCartCommand = new DelegateCommand(() =>
             {
-                navigationService.Navigate("OnlineCart", SelectedPriceShoppingList.Store.CartUrl);
-            }, () => { return SelectedPriceShoppingList != null; }).ObservesProperty(() => SelectedPriceShoppingList);
+                navigationService.Navigate("OnlineCart", SelectedRetailerShoppingSessionInfo);
+            }, () => { return SelectedRetailerShoppingSessionInfo != null; }).ObservesProperty(() => SelectedRetailerShoppingSessionInfo);
         }
 
         public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
             base.OnNavigatedTo(e, viewModelState);
 
-            foreach (var list in PricedShoppingListList)
+            List<Task> tasks = new List<Task>();
+            foreach (var info in RetailerShoppingSessionInfos)
             {
-                await list.Store.Retailer.Shopper.PriceShoppingListAsync(list);
+                tasks.Add(info.PriceShoppingListAsync());
             }
+
+            await Task.WhenAll(tasks);
         }
     }
 }

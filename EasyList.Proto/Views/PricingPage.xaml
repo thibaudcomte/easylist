@@ -4,11 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:EasyList.Proto.Controls"
     xmlns:conv="using:EasyList.Proto.Converters"
-    xmlns:core="using:EasyList.Proto.Core.Shopping"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:EasyList.Proto.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:vm="using:EasyList.Proto.ViewModels"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
@@ -28,11 +28,11 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:AdaptiveHeaderedContent Header="Comparatif des prix">
             <GridView
-                ItemsSource="{x:Bind ConcreteDataContext.PricedShoppingListList}"
-                SelectedItem="{x:Bind ConcreteDataContext.SelectedPriceShoppingList, Mode=TwoWay}"
+                ItemsSource="{Binding RetailerShoppingSessionInfos}"
+                SelectedItem="{Binding SelectedRetailerShoppingSessionInfo, Mode=TwoWay}"
                 SelectionMode="Single">
                 <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="core:PricedShoppingList">
+                    <DataTemplate>
                         <Grid Margin="4">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
@@ -43,16 +43,16 @@
                                 HorizontalAlignment="Left"
                                 Source="../Images/intermarche.png"
                                 Stretch="Uniform" />
-                            <ItemsControl Grid.Row="1" ItemsSource="{x:Bind PricedShoppingListItems}">
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding PricedShoppingList.PricedShoppingListItems}">
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="core:PricedShoppingListItem">
+                                    <DataTemplate>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="150" />
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="40" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{x:Bind ShoppingListItem.Ingredient, Converter={StaticResource IngredientToTextConverter}}" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding ShoppingListItem.Ingredient, Converter={StaticResource IngredientToTextConverter}}" TextTrimming="CharacterEllipsis" />
                                             <TextBlock
                                                 Grid.Column="1"
                                                 Margin="12,0"
@@ -65,14 +65,14 @@
                                             <TextBlock
                                                 Grid.Column="2"
                                                 HorizontalAlignment="Right"
-                                                Text="{x:Bind Price, Mode=OneWay}" />
+                                                Text="{Binding Price, Mode=OneWay}" />
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                             <TextBlock Grid.Row="2" Style="{ThemeResource SubtitleTextBlockStyle}">
                                 <Run Text="Total" />
-                                <Run Foreground="{ThemeResource AccentButtonBackground}" Text="{x:Bind Price, Mode=OneWay}" />
+                                <Run Foreground="{ThemeResource AccentButtonBackground}" Text="{Binding PricedShoppingList.Price, Mode=OneWay}" />
                                 <Run Foreground="{ThemeResource AccentButtonBackground}" Text="Eur" />
                             </TextBlock>
                         </Grid>

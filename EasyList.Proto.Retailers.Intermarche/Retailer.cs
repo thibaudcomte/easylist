@@ -1,12 +1,11 @@
-﻿using EasyList.Proto.Core.Intermarche;
-using EasyList.Proto.Core.Storage.LocalStorage;
+﻿using EasyList.Proto.Core.Retailers;
 
-namespace EasyList.Proto.Core.Retailers.Intermarche
+namespace EasyList.Proto.Retailers.Intermarche
 {
     public class Retailer : IRetailer
     {
         public RetailerLocator Locator { get; }
-        public RetailerSettings Settings { get; }
+        public RetailerSettingsBase Settings { get; }
         public RetailerShopper Shopper { get; }
 
         IRetailerLocator IRetailer.Locator => Locator;
@@ -15,10 +14,11 @@ namespace EasyList.Proto.Core.Retailers.Intermarche
 
         public string Name => "Intermarche";
 
-        public Retailer()
+        public Retailer(RetailerSettingsBase retailerSettings)
         {
             Locator = new RetailerLocator(this);
-            Settings = new RetailerSettings(Locator, new LocalStorageReaderWriter(Name));
+            Settings = retailerSettings;
+            Settings.Retailer = this;
             Shopper = new RetailerShopper();
         }
     }

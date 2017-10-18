@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using EasyList.Proto.Core.Storage;
 using System.Threading.Tasks;
 
-namespace EasyList.Proto.Core.Storage.LocalStorage
+namespace EasyList.Proto.Core.Uwp.Storage.LocalStorage
 {
     public class LocalStorageReaderWriter : IStorageReaderWriter
     {

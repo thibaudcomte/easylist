@@ -34,11 +34,11 @@
                 <ScrollViewer>
                     <GridView
                         Name="StoresGridView"
-                        ItemsSource="{x:Bind ConcreteDataContext.UserStores}"
-                        SelectedItem="{x:Bind ConcreteDataContext.SelectedStore, Mode=TwoWay}"
+                        ItemsSource="{Binding UserStores}"
+                        SelectedItem="{Binding SelectedStore, Mode=TwoWay}"
                         SelectionMode="Single">
                         <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="core:IStore">
+                            <DataTemplate>
                                 <Grid Width="240" Height="180">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="60" />
@@ -53,13 +53,13 @@
                                         Grid.Row="1"
                                         MaxLines="2"
                                         Style="{ThemeResource TitleTextBlockStyle}"
-                                        Text="{x:Bind Name}"
+                                        Text="{Binding Name}"
                                         TextWrapping="Wrap" />
                                     <TextBlock Grid.Row="2" TextWrapping="Wrap">
-                                        <Run Text="{x:Bind Address}" />
+                                        <Run Text="{Binding Address}" />
                                         <LineBreak />
-                                        <Run Text="{x:Bind ZipCode}" />
-                                        <Run Text="{x:Bind City}" />
+                                        <Run Text="{Binding ZipCode}" />
+                                        <Run Text="{Binding City}" />
                                     </TextBlock>
                                 </Grid>
                             </DataTemplate>

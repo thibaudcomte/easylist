@@ -1,8 +1,12 @@
-﻿using EasyList.Proto.Core;
-using EasyList.Proto.Core.Recipes;
+﻿using EasyList.Proto.Core.Recipes;
 using EasyList.Proto.Core.Retailers;
 using EasyList.Proto.Core.Shopping;
+using EasyList.Proto.Core.Storage;
+using EasyList.Proto.Core.Uwp.Storage.LocalStorage;
 using EasyList.Proto.DataModels;
+using EasyList.Proto.Retailers.Intermarche;
+using Microsoft.Azure.Mobile;
+using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Practices.Unity;
 using Prism.Unity.Windows;
 using System.Threading.Tasks;
@@ -20,6 +24,9 @@ namespace EasyList.Proto
         public App()
         {
             InitializeComponent();
+
+            // check out https://mobile.azure.com/users/thibaud.comte/apps/EasyList/analytics/overview
+            MobileCenter.Start("fb67d238-7123-4595-8aca-24df688ef958", typeof(Analytics));
         }
 
         protected override UIElement CreateShell(Frame rootFrame)
@@ -49,14 +56,14 @@ namespace EasyList.Proto
         {
             base.ConfigureContainer();
 
-            Container.RegisterType<IRecipesProvider, RecipesJsonProvider>();
-            Container.RegisterType<RecipesFacade>(new ContainerControlledLifetimeManager());
-
             RetailersProvider retailersProvider = new RetailersProvider();
-            retailersProvider.Retailers.Add(Container.Resolve<Core.Retailers.Intermarche.Retailer>());
-
+            retailersProvider.Retailers.Add(new Retailer(new RetailerSettings()));
             Container.RegisterInstance<IRetailersProvider>(retailersProvider);
+
             Container.RegisterType<RetailersFacade>(new ContainerControlledLifetimeManager());
+
+            RecipesFacade recipesFacade = new RecipesFacade(new RecipesJsonProvider(), new LocalStorageReaderWriter("favoriteRecipes"));
+            Container.RegisterInstance(recipesFacade);
 
             Container.RegisterType<ShoppingFacade>(new ContainerControlledLifetimeManager());
         }

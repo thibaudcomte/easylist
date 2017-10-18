@@ -1,6 +1,5 @@
 ﻿using EasyList.Proto.Core.Recipes.Containers;
-using EasyList.Proto.Core.Storage.LocalStorage;
-using System;
+using EasyList.Proto.Core.Storage;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,12 +12,13 @@ namespace EasyList.Proto.Core.Recipes
         public SelectedRecipesContainer SelectedRecipesContainer { get; }
         public FavoriteRecipesContainer FavoriteRecipesContainer { get; }
 
-        public RecipesFacade(IRecipesProvider recipesProvider)
+        public RecipesFacade(IRecipesProvider recipesProvider, IStorageReaderWriter storageReaderWriter)
         {
             _RecipesProvider = recipesProvider;
 
             SelectedRecipesContainer = new SelectedRecipesContainer();
-            FavoriteRecipesContainer = new FavoriteRecipesContainer(new LocalStorageReaderWriter("favoriteRecipes"), recipesProvider);
+            // new LocalStorageReaderWriter("favoriteRecipes")
+            FavoriteRecipesContainer = new FavoriteRecipesContainer(storageReaderWriter, recipesProvider);
         }
 
         public Task InitializeAsync()

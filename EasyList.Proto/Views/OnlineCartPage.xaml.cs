@@ -1,6 +1,9 @@
-﻿using System;
+﻿using EasyList.Proto.ViewModels;
+using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,8 +21,21 @@ namespace EasyList.Proto.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string url = e.Parameter.ToString();
-            webView.Navigate(new Uri(url));
+            RetailerShoppingSessionInfo retailerShoppingSessionInfo = e.Parameter as RetailerShoppingSessionInfo;
+
+            // creating the filter
+            var myFilter = new HttpBaseProtocolFilter();
+            myFilter.AllowAutoRedirect = true;
+
+            // get a reference to the cookieManager (this applies to all requests)
+            var cookieManager = myFilter.CookieManager;
+            foreach (var cookie in retailerShoppingSessionInfo.RetailerShoppingSession.RetailerShoppingSessionCookies)
+            {
+                cookieManager.SetCookie(new HttpCookie(cookie.Name, cookie.Domain, cookie.Path) { Value = cookie.Value });
+            }
+
+            webView.Navigate(new Uri(retailerShoppingSessionInfo.RetailerShoppingSession.Store.CartUrl));
+
             base.OnNavigatedTo(e);
         }
     }

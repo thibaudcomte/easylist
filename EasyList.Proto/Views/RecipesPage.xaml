@@ -46,8 +46,8 @@
                     <GridView
                         x:Name="gridView"
                         ItemTemplate="{StaticResource RecipeDataTemplate}"
-                        ItemsSource="{x:Bind ConcreteDataContext.Recipes}"
-                        SelectedItem="{x:Bind ConcreteDataContext.SelectedRecipe, Mode=TwoWay}"
+                        ItemsSource="{Binding Recipes}"
+                        SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}"
                         SelectionMode="Single" />
                 </PivotItem>
                 <PivotItem Header="Desserts" />

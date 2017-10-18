@@ -36,12 +36,12 @@
     </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <controls:AdaptiveHeaderedContent Header="Recettes favories">
+        <controls:AdaptiveHeaderedContent Header="Recettes favorites">
             <GridView
                 Margin="0,24"
                 ItemTemplate="{StaticResource RecipeDataTemplate}"
-                ItemsSource="{x:Bind ConcreteDataContext.Recipes}"
-                SelectedItem="{x:Bind ConcreteDataContext.SelectedRecipe, Mode=TwoWay}"
+                ItemsSource="{Binding Recipes}"
+                SelectedItem="{Binding SelectedRecipe, Mode=TwoWay}"
                 SelectionMode="Single" />
         </controls:AdaptiveHeaderedContent>
     </Grid>

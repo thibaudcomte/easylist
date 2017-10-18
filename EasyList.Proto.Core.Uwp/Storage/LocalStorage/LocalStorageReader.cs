@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using EasyList.Proto.Core.Storage;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 using Windows.Storage;
 
-namespace EasyList.Proto.Core.Storage.LocalStorage
+namespace EasyList.Proto.Core.Uwp.Storage.LocalStorage
 {
     public class LocalStorageReader : IStorageReader
     {

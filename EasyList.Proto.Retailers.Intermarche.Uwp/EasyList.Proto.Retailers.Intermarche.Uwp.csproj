@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9D0A2E96-E5D1-430D-8068-D77674731D31}</ProjectGuid>
+    <ProjectGuid>{8B05C827-8D52-48CF-AE68-3FBC0D280897}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyList.Proto.Core.Retailers.Intermarche</RootNamespace>
-    <AssemblyName>EasyList.Proto.Core.Retailers.Intermarche</AssemblyName>
+    <RootNamespace>EasyList.Proto.Retailers.Intermarche.Uwp</RootNamespace>
+    <AssemblyName>EasyList.Proto.Retailers.Intermarche.Uwp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -106,23 +106,27 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="RetailerShopper.cs" />
-    <Compile Include="RetailerLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Retailer.cs" />
     <Compile Include="RetailerSettings.cs" />
-    <Compile Include="Store.cs" />
-    <EmbeddedResource Include="Properties\EasyList.Proto.Core.Retailers.Intermarche.rd.xml" />
+    <EmbeddedResource Include="Properties\EasyList.Proto.Retailers.Intermarche.Uwp.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.4.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EasyList.Proto.Core.Uwp\EasyList.Proto.Core.Uwp.csproj">
+      <Project>{38CD8F34-E297-43E8-A3DE-0C4C76B2464C}</Project>
+      <Name>EasyList.Proto.Core.Uwp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EasyList.Proto.Core\EasyList.Proto.Core.csproj">
-      <Project>{38cd8f34-e297-43e8-a3de-0c4c76b2464c}</Project>
+      <Project>{EDC5F38A-DC68-4AE0-B508-AD5D0552F634}</Project>
       <Name>EasyList.Proto.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyList.Proto.Retailers.Intermarche\EasyList.Proto.Retailers.Intermarche.csproj">
+      <Project>{b7053013-46b5-4ea2-a157-e61083d25106}</Project>
+      <Name>EasyList.Proto.Retailers.Intermarche</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

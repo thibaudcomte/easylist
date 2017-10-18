@@ -1,7 +1,5 @@
 ﻿using EasyList.Proto.Core.Retailers.Containers;
-using EasyList.Proto.Core.Shopping;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyList.Proto.Core.Retailers
