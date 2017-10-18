@@ -14,7 +14,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton
-                Command="{x:Bind ConcreteDataContext.PriceShoppingListCommand}"
+                Command="{Binding PriceShoppingListCommand}"
                 Icon="Shop"
                 Label="Estimer le prix" />
         </CommandBar>

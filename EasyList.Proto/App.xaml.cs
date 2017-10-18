@@ -1,7 +1,6 @@
 ﻿using EasyList.Proto.Core.Recipes;
 using EasyList.Proto.Core.Retailers;
 using EasyList.Proto.Core.Shopping;
-using EasyList.Proto.Core.Storage;
 using EasyList.Proto.Core.Uwp.Storage.LocalStorage;
 using EasyList.Proto.DataModels;
 using EasyList.Proto.Retailers.Intermarche;

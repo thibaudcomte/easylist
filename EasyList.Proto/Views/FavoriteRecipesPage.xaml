@@ -21,15 +21,15 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton
-                Command="{x:Bind ConcreteDataContext.AddToSelectedRecipesCommand}"
+                Command="{Binding AddToSelectedRecipesCommand}"
                 Icon="Add"
                 Label="Choisir cette recette" />
             <AppBarButton
-                Command="{x:Bind ConcreteDataContext.RemoveRecipeCommand}"
+                Command="{Binding RemoveRecipeCommand}"
                 Icon="Delete"
                 Label="Supprimer cette recette" />
             <AppBarButton
-                Command="{x:Bind ConcreteDataContext.GoToRecipeDetailsCommand}"
+                Command="{Binding GoToRecipeDetailsCommand}"
                 Icon="PreviewLink"
                 Label="Voir les détails" />
         </CommandBar>

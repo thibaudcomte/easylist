@@ -1,7 +1,6 @@
 ﻿using EasyList.Proto.Core.Retailers;
 using EasyList.Proto.Core.Shopping;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using System.Collections.Generic;

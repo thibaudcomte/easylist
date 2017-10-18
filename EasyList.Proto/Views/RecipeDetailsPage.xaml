@@ -4,9 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:EasyList.Proto.Controls"
     xmlns:conv="using:EasyList.Proto.Converters"
-    xmlns:core="using:EasyList.Proto.Core.Recipes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:EasyList.Proto.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     xmlns:sys="using:System"
@@ -19,7 +17,7 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <controls:AdaptiveHeaderedContent Header="{x:Bind ConcreteDataContext.Recipe.Title}">
+        <controls:AdaptiveHeaderedContent Header="{Binding Recipe.Title}">
             <ScrollViewer>
                 <Grid Margin="0,12,12,12">
                     <Grid.ColumnDefinitions>
@@ -43,16 +41,16 @@
                         Grid.ColumnSpan="2"
                         Margin="0,12,0,24">
                         <Run Text="Préparation:" />
-                        <Run Text="{x:Bind ConcreteDataContext.Recipe.PrepTime, Converter={StaticResource TimeConverter}}" />
+                        <Run Text="{Binding Recipe.PrepTime, Converter={StaticResource TimeConverter}}" />
                         <Run Text=" | " />
                         <Run Text="Cuisson:" />
-                        <Run Text="{x:Bind ConcreteDataContext.Recipe.CookTime, Converter={StaticResource TimeConverter}}" />
+                        <Run Text="{Binding Recipe.CookTime, Converter={StaticResource TimeConverter}}" />
                     </TextBlock>
 
                     <ItemsControl
                         x:Name="instructions"
                         Grid.Row="2"
-                        ItemsSource="{x:Bind ConcreteDataContext.Recipe.Instructions}"
+                        ItemsSource="{Binding Recipe.Instructions}"
                         ScrollViewer.VerticalScrollMode="Auto">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -71,7 +69,7 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="20,0,0,0"
-                        ItemsSource="{x:Bind ConcreteDataContext.Recipe.Ingredients}">
+                        ItemsSource="{Binding Recipe.Ingredients}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource IngredientToTextConverter}}" />

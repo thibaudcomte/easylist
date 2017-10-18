@@ -5,10 +5,8 @@
     xmlns:controls="using:EasyList.Proto.Controls"
     xmlns:conv="using:EasyList.Proto.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:EasyList.Proto.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
-    xmlns:vm="using:EasyList.Proto.ViewModels"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
@@ -19,7 +17,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton
-                Command="{x:Bind ConcreteDataContext.GoToOnlineShoppingCartCommand}"
+                Command="{Binding GoToOnlineShoppingCartCommand}"
                 Icon="Shop"
                 Label="Passer commande" />
         </CommandBar>
