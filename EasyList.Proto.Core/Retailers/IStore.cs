@@ -2,7 +2,7 @@
 {
     public interface IStore
     {
-        int Id { get; }
+        //int Id { get; }
         string Name { get; }
         string Address { get; }
         string City { get; }

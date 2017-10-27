@@ -1,4 +1,4 @@
-﻿using EasyList.Proto.Core.Containers;
+﻿using EasyList.Proto.Core.Misc.Containers;
 using System.Linq;
 
 namespace EasyList.Proto.Core.Recipes

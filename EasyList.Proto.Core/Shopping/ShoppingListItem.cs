@@ -1,9 +1,9 @@
-﻿using EasyList.Proto.Core.Recipes;
-using System.ComponentModel;
+﻿using EasyList.Proto.Core.Misc.Mvvm;
+using EasyList.Proto.Core.Recipes;
 
 namespace EasyList.Proto.Core.Shopping
 {
-    public class ShoppingListItem : INotifyPropertyChanged
+    public class ShoppingListItem : BindableBase
     {
         public Ingredient Ingredient { get; }
 
@@ -11,14 +11,7 @@ namespace EasyList.Proto.Core.Shopping
         public float OrderAmount
         {
             get { return _OrderAmount; }
-            set
-            {
-                if (_OrderAmount != value)
-                {
-                    _OrderAmount = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(OrderAmount)));
-                }
-            }
+            set { SetProperty(ref _OrderAmount, value); }
         }
 
         private bool _IsIncluded;
@@ -27,11 +20,9 @@ namespace EasyList.Proto.Core.Shopping
             get { return _IsIncluded; }
             set
             {
-                if (value != _IsIncluded)
+                if (SetProperty(ref _IsIncluded, value))
                 {
-                    _IsIncluded = value;
                     OrderAmount = IsIncluded ? _OriginalAmount : 0;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsIncluded)));
                 }
             }
         }
@@ -49,7 +40,5 @@ namespace EasyList.Proto.Core.Shopping
         public ShoppingListItem(Ingredient ingredient) : this(ingredient, true)
         {
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

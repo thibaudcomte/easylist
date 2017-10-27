@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-namespace EasyList.Proto.Retailers.Intermarche
+namespace EasyList.Proto.Retailers.Intermarche.Uwp
 {
     [DataContract]
     public class PersistentRetailerSettings
@@ -35,7 +35,7 @@ namespace EasyList.Proto.Retailers.Intermarche
 
             foreach (var id in persistentSettings.UserStoreIds)
             {
-                var store = await Retailer.Locator.GetStoreFromIdAsync(id);
+                var store = await ((Retailer)Retailer).Locator.GetStoreFromIdAsync(id);
                 if (store != null)
                 {
                     AddUserStore(store);

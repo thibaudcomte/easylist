@@ -1,6 +1,6 @@
 ﻿using EasyList.Proto.Core.Retailers;
 
-namespace EasyList.Proto.Retailers.Intermarche
+namespace EasyList.Proto.Retailers.Carrefour
 {
     public abstract class RetailerSettingsBase : RetailerSettingsBase<Store>
     {

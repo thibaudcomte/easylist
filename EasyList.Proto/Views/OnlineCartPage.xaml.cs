@@ -24,12 +24,14 @@ namespace EasyList.Proto.Views
             RetailerShoppingSessionInfo retailerShoppingSessionInfo = e.Parameter as RetailerShoppingSessionInfo;
 
             // creating the filter
-            var myFilter = new HttpBaseProtocolFilter();
-            myFilter.AllowAutoRedirect = true;
+            var myFilter = new HttpBaseProtocolFilter
+            {
+                AllowAutoRedirect = true
+            };
 
             // get a reference to the cookieManager (this applies to all requests)
             var cookieManager = myFilter.CookieManager;
-            foreach (var cookie in retailerShoppingSessionInfo.RetailerShoppingSession.RetailerShoppingSessionCookies)
+            foreach (var cookie in retailerShoppingSessionInfo.RetailerShoppingSession.Cookies)
             {
                 cookieManager.SetCookie(new HttpCookie(cookie.Name, cookie.Domain, cookie.Path) { Value = cookie.Value });
             }

@@ -10,7 +10,7 @@ namespace EasyList.Proto.Core.Retailers
     public interface IRetailerShoppingSession
     {
         IStore Store { get; }
-        Cookie[] RetailerShoppingSessionCookies { get; }
+        Cookie[] Cookies { get; }
         Task<PricedShoppingList> PriceShoppingListAsync(ShoppingList list);
         Task PriceShoppingListAsync(PricedShoppingList list);
     }

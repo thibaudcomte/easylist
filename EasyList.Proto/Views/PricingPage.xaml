@@ -11,6 +11,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <conv:RetailerToLogoConverter x:Key="RetailerToLogoConverter" />
         <conv:IngredientToTextConverter x:Key="IngredientToTextConverter" />
     </Page.Resources>
 
@@ -39,7 +40,7 @@
                             </Grid.RowDefinitions>
                             <Image
                                 HorizontalAlignment="Left"
-                                Source="../Images/intermarche.png"
+                                Source="{Binding RetailerShoppingSession.Store.Retailer, Converter={StaticResource RetailerToLogoConverter}}"
                                 Stretch="Uniform" />
                             <ItemsControl Grid.Row="1" ItemsSource="{Binding PricedShoppingList.PricedShoppingListItems}">
                                 <ItemsControl.ItemTemplate>

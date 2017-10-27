@@ -4,6 +4,9 @@ using EasyList.Proto.Core.Shopping;
 using EasyList.Proto.Core.Uwp.Storage.LocalStorage;
 using EasyList.Proto.DataModels;
 using EasyList.Proto.Retailers.Intermarche;
+using EasyList.Proto.Retailers.Intermarche.Uwp;
+using EasyList.Proto.Retailers.Carrefour;
+using EasyList.Proto.Retailers.Carrefour.Uwp;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Practices.Unity;
@@ -56,7 +59,8 @@ namespace EasyList.Proto
             base.ConfigureContainer();
 
             RetailersProvider retailersProvider = new RetailersProvider();
-            retailersProvider.Retailers.Add(new Retailer(new RetailerSettings()));
+            retailersProvider.Retailers.Add(new Retailers.Intermarche.Retailer(new Retailers.Intermarche.Uwp.RetailerSettings()));
+            retailersProvider.Retailers.Add(new Retailers.Carrefour.Retailer(new Retailers.Carrefour.Uwp.RetailerSettings()));
             Container.RegisterInstance<IRetailersProvider>(retailersProvider);
 
             Container.RegisterType<RetailersFacade>(new ContainerControlledLifetimeManager());

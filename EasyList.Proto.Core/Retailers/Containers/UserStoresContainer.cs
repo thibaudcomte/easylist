@@ -1,4 +1,4 @@
-﻿using EasyList.Proto.Core.Containers;
+﻿using EasyList.Proto.Core.Misc.Containers;
 using System.Threading.Tasks;
 
 namespace EasyList.Proto.Core.Retailers.Containers

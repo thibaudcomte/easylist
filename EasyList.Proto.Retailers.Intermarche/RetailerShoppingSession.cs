@@ -22,23 +22,23 @@ namespace EasyList.Proto.Retailers.Intermarche
     {
         private readonly HttpClientHandler _HttpClientHandler;
         private readonly HttpClient _HttpClient;
-        private readonly Store Store;
+        private readonly Store _Store;
         private readonly CultureInfo _CultureFR = new CultureInfo("fr-FR");
 
-        public Cookie[] RetailerShoppingSessionCookies => GetSessionCookies();
+        public Cookie[] Cookies => GetSessionCookies();
 
-        IStore IRetailerShoppingSession.Store => Store;
+        public IStore Store => _Store;
 
         public RetailerShoppingSession(Store store)
         {
             _HttpClientHandler = new HttpClientHandler();
             _HttpClient = new HttpClient(_HttpClientHandler);
-            Store = store;
+            _Store = store;
         }
 
         public async Task<PricedShoppingList> PriceShoppingListAsync(ShoppingList list)
         {
-            PricedShoppingList pricedShoppingList = new PricedShoppingList(list, Store);
+            PricedShoppingList pricedShoppingList = new PricedShoppingList(list, _Store);
             await PriceShoppingListAsync(pricedShoppingList);
             return pricedShoppingList;
         }
@@ -60,16 +60,16 @@ namespace EasyList.Proto.Retailers.Intermarche
 
         private async Task InitializeTransactionAsync()
         {
-            var response = await _HttpClient.GetAsync(new Uri($"https://drive.intermarche.com/{Store.Urlh}"));
+            var response = await _HttpClient.GetAsync(new Uri($"https://drive.intermarche.com/{_Store.Urlh}"));
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Failed to connect to store {Store} (status code is {response.StatusCode}).");
+                throw new Exception($"Failed to connect to store {_Store} (status code is {response.StatusCode}).");
             }
         }
 
         private async Task<int> GetProductIdForItemAsync(ShoppingListItem shoppingListItem)
         {
-            string content = await _HttpClient.GetStringAsync(new Uri($"https://drive.intermarche.com/{Store.Urlh}/produit/recherche/{shoppingListItem.Ingredient.Name}"));
+            string content = await _HttpClient.GetStringAsync(new Uri($"https://drive.intermarche.com/{_Store.Urlh}/produit/recherche/{shoppingListItem.Ingredient.Name}"));
             Match match = Regex.Match(content, @"list_product_id: ""(\d+)""");
             string id = match.Groups[1].Value;
             return int.Parse(id);

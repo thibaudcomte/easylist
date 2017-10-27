@@ -1,10 +1,10 @@
-﻿using EasyList.Proto.Core.Containers;
+﻿using EasyList.Proto.Core.Misc.Containers;
+using EasyList.Proto.Core.Misc.Mvvm;
 using EasyList.Proto.Core.Retailers;
-using System.ComponentModel;
 
 namespace EasyList.Proto.Core.Shopping
 {
-    public class PricedShoppingList : INotifyPropertyChanged
+    public class PricedShoppingList : BindableBase
     {
         public IStore Store { get; }
         public ObservableContainer<PricedShoppingListItem> PricedShoppingListItems { get; }
@@ -12,14 +12,7 @@ namespace EasyList.Proto.Core.Shopping
         public float Price
         {
             get { return _Price; }
-            set
-            {
-                if (value != Price)
-                {
-                    _Price = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
-                }
-            }
+            set { SetProperty(ref _Price, value); }
         }
 
         public PricedShoppingList(ShoppingList shoppingList, IStore store)
@@ -33,7 +26,5 @@ namespace EasyList.Proto.Core.Shopping
                 PricedShoppingListItems.Add(new PricedShoppingListItem(item));
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

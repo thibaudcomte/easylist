@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Converters\IngredientToTextConverter.cs" />
     <Compile Include="Converters\ItemControlItemToPositionConverter.cs" />
+    <Compile Include="Converters\RetailerToLogoConverter.cs" />
     <Compile Include="Converters\TimeMinutesToTextConverter.cs" />
     <Compile Include="DataModels\RecipeJsonProvider.cs" />
     <Compile Include="DataModels\RetailersProvider.cs" />
@@ -154,6 +155,7 @@
     <None Include="EasyList.Proto_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\carrefour.png" />
     <Content Include="Images\intermarche.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -242,6 +244,14 @@
     <ProjectReference Include="..\EasyList.Proto.Controls\EasyList.Proto.Controls.csproj">
       <Project>{2c66a970-d809-4467-8016-40ed4119a2cd}</Project>
       <Name>EasyList.Proto.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyList.Proto.Retailers.Carrefour.Uwp\EasyList.Proto.Retailers.Carrefour.Uwp.csproj">
+      <Project>{da1a3a2a-8c2b-49f8-9693-8aadf321513d}</Project>
+      <Name>EasyList.Proto.Retailers.Carrefour.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyList.Proto.Retailers.Carrefour\EasyList.Proto.Retailers.Carrefour.csproj">
+      <Project>{0d944737-c63f-4d6d-bbb6-e5f23078040a}</Project>
+      <Name>EasyList.Proto.Retailers.Carrefour</Name>
     </ProjectReference>
     <ProjectReference Include="..\EasyList.Proto.Retailers.Intermarche.Uwp\EasyList.Proto.Retailers.Intermarche.Uwp.csproj">
       <Project>{8B05C827-8D52-48CF-AE68-3FBC0D280897}</Project>

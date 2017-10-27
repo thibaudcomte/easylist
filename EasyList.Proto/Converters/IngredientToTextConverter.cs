@@ -11,7 +11,7 @@ namespace EasyList.Proto.Converters
         {
             Ingredient ingredient = value as Ingredient;
 
-            switch (ingredient?.QuantityUnit)
+            switch (ingredient?.Unit)
             {
                 case EIngredientUnitType.None:
                     if (ingredient.Quantity > 0)

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace EasyList.Proto.Core.Recipes
+﻿namespace EasyList.Proto.Core.Recipes
 {
     public enum EIngredientUnitType
     {
@@ -12,13 +10,12 @@ namespace EasyList.Proto.Core.Recipes
         Cup
     }
 
-    [DebuggerDisplay("{Name} ({Id}): {Quantity} {QuantityUnit}")]
     public class Ingredient
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public float Quantity { get; set; }
-        public EIngredientUnitType QuantityUnit { get; set; }
+        public EIngredientUnitType Unit { get; set; }
 
         public Ingredient Copy()
         {
@@ -27,7 +24,7 @@ namespace EasyList.Proto.Core.Recipes
                 Id = Id,
                 Name = Name,
                 Quantity = Quantity,
-                QuantityUnit = QuantityUnit
+                Unit = Unit
             };
         }
     }

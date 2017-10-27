@@ -59,7 +59,7 @@ namespace EasyList.Proto.DataModels
                         ingredient.Quantity = (float)ingredientObject.GetNamedNumber("qty");
 
                     if (ingredientObject.ContainsKey("unit"))
-                        ingredient.QuantityUnit = GetUnitFromText(ingredientObject.GetNamedString("unit"));
+                        ingredient.Unit = GetUnitFromText(ingredientObject.GetNamedString("unit"));
 
                     recipe.Ingredients.Add(ingredient);
                 }
