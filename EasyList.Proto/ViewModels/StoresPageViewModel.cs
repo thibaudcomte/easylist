@@ -40,7 +40,7 @@ namespace EasyList.Proto.ViewModels
 
             NavigateToStoreCommand = new DelegateCommand(async () =>
             {
-                Uri uri = new Uri($@"bingmaps:?rtp=~adr.{SelectedStore.Address},%20{SelectedStore.ZipCode},%20{SelectedStore.City}&amp;mode=d&amp;trfc=1");
+                Uri uri = new Uri($@"ms-drive-to:?destination.latitude={SelectedStore.Latitude}&destination.longitude={SelectedStore.Longitude}&destination.name={SelectedStore.Retailer.Name}");
                 await Windows.System.Launcher.LaunchUriAsync(uri);
             }, () => { return SelectedStore != null; }).ObservesProperty(() => SelectedStore);
         }

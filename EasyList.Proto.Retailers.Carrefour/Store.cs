@@ -1,27 +1,29 @@
 ﻿using EasyList.Proto.Core.Retailers;
+using System.Runtime.Serialization;
 
 namespace EasyList.Proto.Retailers.Carrefour
 {
+    [DataContract]
     public class Store : IStore
     {
-        public Retailer Retailer { get; }
+        public Retailer Retailer { get; set; }
         IRetailer IStore.Retailer => Retailer;
-        public int Id { get; }
-        public string Name { get; }
-        public string Address { get; }
-        public string City { get; }
-        public string ZipCode { get; }
+
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public string Address { get; set; }
+        [DataMember]
+        public string City { get; set; }
+        [DataMember]
+        public string ZipCode { get; set; }
+        [DataMember]
+        public double Latitude { get; set; }
+        [DataMember]
+        public double Longitude { get; set; }
 
         public string CartUrl => "https://courses-en-ligne.carrefour.fr";
-
-        public Store(Retailer retailer, int id, string name, string address, string city, string zipCode)
-        {
-            Retailer = retailer;
-            Id = id;
-            Name = name;
-            Address = address;
-            City = city;
-            ZipCode = zipCode;
-        }
     }
 }

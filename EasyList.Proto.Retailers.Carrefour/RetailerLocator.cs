@@ -26,10 +26,17 @@ namespace EasyList.Proto.Retailers.Carrefour
 
                 return from store in storeArray
                        where (int)store["storeRef"] > 0
-                       select new Store(retailer, (int)store["storeRef"], (string)store["name"],
-                           (string)store["address"],
-                           (string)store["city"],
-                           (string)store["zipCode"]);
+                       select new Store
+                       {
+                           Retailer = retailer,
+                           Id = (int)store["storeRef"],
+                           Name = (string)store["name"],
+                           Address = (string)store["address"],
+                           City = (string)store["city"],
+                           ZipCode = (string)store["zipCode"],
+                           Latitude = (double)store["lat"],
+                           Longitude = (double)store["lng"]
+                       };
             }
         }
     }

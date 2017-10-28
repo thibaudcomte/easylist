@@ -44,8 +44,8 @@ namespace EasyList.Proto.Retailers.Intermarche
                            Address = (string)store["adr"],
                            City = (string)store["nos"],
                            ZipCode = (string)store["cp"],
-                           Latitude = (int)store["lat"],
-                           Longitude = (int)store["lon"],
+                           Latitude = (double)store["lat"],
+                           Longitude = (double)store["lon"],
                            Urlh = (string)store["urlh"]
                        };
             }

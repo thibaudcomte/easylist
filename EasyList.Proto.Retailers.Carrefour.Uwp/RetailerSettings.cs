@@ -1,31 +1,15 @@
 ﻿using EasyList.Proto.Core.Storage;
 using EasyList.Proto.Core.Uwp.Storage.LocalStorage;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace EasyList.Proto.Retailers.Carrefour.Uwp
 {
     [DataContract]
-    public class PersistentStore
-    {
-        [DataMember]
-        public int Id { get; set; }
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
-        public string Address { get; set; }
-        [DataMember]
-        public string City { get; set; }
-        [DataMember]
-        public string ZipCode { get; set; }
-    }
-
-    [DataContract]
     public class PersistentRetailerSettings
     {
         [DataMember]
-        public PersistentStore[] Stores { get; set; }
+        public Store[] UserStores { get; set; }
     }
 
     public class RetailerSettings : RetailerSettingsBase
@@ -43,15 +27,15 @@ namespace EasyList.Proto.Retailers.Carrefour.Uwp
 
             ClearUserStores();
 
-            if (persistentSettings == null || persistentSettings.Stores == null)
+            if (persistentSettings == null || persistentSettings.UserStores == null)
             {
                 return;
             }
 
-            foreach (var persistentStore in persistentSettings.Stores)
+            foreach (var userStore in persistentSettings.UserStores)
             {
-                Store store = new Store(Retailer, persistentStore.Id, persistentStore.Name, persistentStore.Address, persistentStore.City, persistentStore.ZipCode);
-                AddUserStore(store);
+                userStore.Retailer = Retailer;
+                AddUserStore(userStore);
             }
         }
 
@@ -59,14 +43,7 @@ namespace EasyList.Proto.Retailers.Carrefour.Uwp
         {
             PersistentRetailerSettings persistentSettings = new PersistentRetailerSettings
             {
-                Stores = _UserStores.Select(store => new PersistentStore
-                {
-                    Id = store.Id,
-                    Name = store.Name,
-                    City = store.City,
-                    Address = store.Address,
-                    ZipCode = store.ZipCode
-                }).ToArray()
+                UserStores = _UserStores.ToArray()
             };
 
             await _StorageReaderWriter.WriteAsync(persistentSettings);

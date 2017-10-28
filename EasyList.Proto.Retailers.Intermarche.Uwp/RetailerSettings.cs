@@ -10,7 +10,7 @@ namespace EasyList.Proto.Retailers.Intermarche.Uwp
     public class PersistentRetailerSettings
     {
         [DataMember]
-        public int[] UserStoreIds { get; set; }
+        public Store[] UserStores { get; set; }
     }
 
     public class RetailerSettings : RetailerSettingsBase
@@ -28,18 +28,15 @@ namespace EasyList.Proto.Retailers.Intermarche.Uwp
 
             ClearUserStores();
 
-            if (persistentSettings == null || persistentSettings.UserStoreIds == null)
+            if (persistentSettings == null || persistentSettings.UserStores == null)
             {
                 return;
             }
 
-            foreach (var id in persistentSettings.UserStoreIds)
+            foreach (var userStore in persistentSettings.UserStores)
             {
-                var store = await ((Retailer)Retailer).Locator.GetStoreFromIdAsync(id);
-                if (store != null)
-                {
-                    AddUserStore(store);
-                }
+                userStore.Retailer = Retailer;
+                AddUserStore(userStore);
             }
         }
 
@@ -47,7 +44,7 @@ namespace EasyList.Proto.Retailers.Intermarche.Uwp
         {
             PersistentRetailerSettings persistentSettings = new PersistentRetailerSettings
             {
-                UserStoreIds = _UserStores.Select(store => store.Id).ToArray()
+                UserStores = _UserStores.ToArray()
             };
 
             await _StorageReaderWriter.WriteAsync(persistentSettings);

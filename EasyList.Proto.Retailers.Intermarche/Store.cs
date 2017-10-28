@@ -1,22 +1,32 @@
 ﻿using EasyList.Proto.Core.Retailers;
-using System.Diagnostics;
+using System.Runtime.Serialization;
 
 namespace EasyList.Proto.Retailers.Intermarche
 {
-    [DebuggerDisplay("{Id} {Name} {City}")]
+    [DataContract]
     public class Store : IStore
     {
         public Retailer Retailer { get; set; }
         IRetailer IStore.Retailer => Retailer;
-        public string Name { get; internal set; }
-        public int Id { get; internal set; }
-        public int Idt { get; internal set; }
-        public string Address { get; internal set; }
-        public string City { get; internal set; }
-        public string ZipCode { get; internal set; }
-        public int Latitude { get; internal set; }
-        public int Longitude { get; internal set; }
-        public string Urlh { get; internal set; }
+
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public int Idt { get; set; }
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public string Address { get; set; }
+        [DataMember]
+        public string City { get; set; }
+        [DataMember]
+        public string ZipCode { get; set; }
+        [DataMember]
+        public double Latitude { get; set; }
+        [DataMember]
+        public double Longitude { get; set; }
+        [DataMember]
+        public string Urlh { get; set; }
 
         public string CartUrl => "https://drive.intermarche.com/mon-panier";
     }
