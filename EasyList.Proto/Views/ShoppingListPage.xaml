@@ -1,5 +1,4 @@
 ﻿<Page
-    x:Class="EasyList.Proto.Views.ShoppingListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:EasyList.Proto.Controls"
@@ -8,8 +7,14 @@
     xmlns:local="using:EasyList.Proto.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:Converters="using:EasyList.Proto.Converters"
+    x:Class="EasyList.Proto.Views.ShoppingListPage"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <Converters:IngredientToTextConverter x:Key="IngredientToTextConverter"/>
+    </Page.Resources>
 
     <Page.BottomAppBar>
         <CommandBar>
@@ -23,28 +28,11 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:AdaptiveHeaderedContent Header="Liste des courses">
             <ScrollViewer>
-                <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding ShoppingList}">
+                <ItemsControl ItemsSource="{Binding ShoppingList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid Width="500">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding Ingredient.Name, Mode=OneTime}" />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Margin="24,0,0,0"
-                                    VerticalAlignment="Center"
-                                    Text="{Binding OrderAmount, Mode=OneWay}" />
-                                <ToggleSwitch
-                                    Grid.Column="2"
-                                    Margin="24,0,0,0"
-                                    IsOn="{Binding IsIncluded, Mode=TwoWay}"
-                                    OffContent="J'en ai déjà"
-                                    OnContent="J'en commande" />
-                            </Grid>
+                            <CheckBox Content="{Binding Ingredient, Converter={StaticResource IngredientToTextConverter}}" 
+                                      IsChecked="{Binding IsIncluded, Mode=TwoWay}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
