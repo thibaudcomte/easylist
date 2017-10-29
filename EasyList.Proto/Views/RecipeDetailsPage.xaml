@@ -2,12 +2,10 @@
     x:Class="EasyList.Proto.Views.RecipeDetailsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:EasyList.Proto.Controls"
     xmlns:conv="using:EasyList.Proto.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
-    xmlns:sys="using:System"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <Page.Resources>
@@ -17,99 +15,65 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <controls:AdaptiveHeaderedContent Header="{Binding Recipe.Title}">
-            <ScrollViewer>
-                <Grid Margin="0,12,12,12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="230" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Image
-                        Name="image"
-                        Grid.ColumnSpan="2"
-                        VerticalAlignment="Center"
-                        Source="{Binding Recipe.ImageUri}"
-                        Stretch="UniformToFill" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Margin="0,12,0,24">
-                        <Run Text="Préparation:" />
-                        <Run Text="{Binding Recipe.PrepTime, Converter={StaticResource TimeConverter}}" />
-                        <Run Text=" | " />
-                        <Run Text="Cuisson:" />
-                        <Run Text="{Binding Recipe.CookTime, Converter={StaticResource TimeConverter}}" />
-                    </TextBlock>
+        <ScrollViewer>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="230" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image
+                    Name="image"
+                    Grid.ColumnSpan="2"
+                    VerticalAlignment="Center"
+                    Source="{Binding Recipe.ImageUri}"
+                    Stretch="UniformToFill" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Margin="0,12,0,24">
+                    <Run Text="Préparation:" />
+                    <Run Text="{Binding Recipe.PrepTime, Converter={StaticResource TimeConverter}}" />
+                    <Run Text=" | " />
+                    <Run Text="Cuisson:" />
+                    <Run Text="{Binding Recipe.CookTime, Converter={StaticResource TimeConverter}}" />
+                </TextBlock>
 
-                    <ItemsControl
-                        x:Name="instructions"
-                        Grid.Row="2"
-                        ItemsSource="{Binding Recipe.Instructions}"
-                        ScrollViewer.VerticalScrollMode="Auto">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,12">
-                                    <TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
-                                        <Run Text="Etape" />
-                                        <Run Text="{Binding Converter={StaticResource ItemControlItemToPositionConverter}}" />
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <ItemsControl
-                        x:Name="ingredients"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="20,0,0,0"
-                        ItemsSource="{Binding Recipe.Ingredients}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Converter={StaticResource IngredientToTextConverter}}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-            </ScrollViewer>
-        </controls:AdaptiveHeaderedContent>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup">
-                <VisualState x:Name="Wide">
-                    <!--<VisualState.StateTriggers>
-                                <AdaptiveTrigger MinWindowWidth="1008" />
-                            </VisualState.StateTriggers>
-                            <VisualState.Setters>
-                                <Setter Target="rootSplitView.DisplayMode" Value="Inline" />
-                                <Setter Target="rootSplitView.IsPaneOpen" Value="True" />
-                            </VisualState.Setters>-->
-                </VisualState>
-                <VisualState x:Name="Medium">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="641" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ingredients.(Grid.Column)" Value="1" />
-                        <Setter Target="instructions.(Grid.Row)" Value="2" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Narrow">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ingredients.(Grid.Column)" Value="0" />
-                        <Setter Target="ingredients.Margin" Value="0,0,0,24" />
-                        <Setter Target="instructions.(Grid.Row)" Value="3" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+                <ItemsControl
+                    x:Name="instructions"
+                    Grid.Row="2"
+                    ItemsSource="{Binding Recipe.Instructions}"
+                    ScrollViewer.VerticalScrollMode="Auto">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,12">
+                                <TextBlock Foreground="{ThemeResource SystemControlForegroundAccentBrush}">
+                                    <Run Text="Etape" />
+                                    <Run Text="{Binding Converter={StaticResource ItemControlItemToPositionConverter}}" />
+                                </TextBlock>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl
+                    x:Name="ingredients"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="20,0,0,0"
+                    ItemsSource="{Binding Recipe.Ingredients}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource IngredientToTextConverter}}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

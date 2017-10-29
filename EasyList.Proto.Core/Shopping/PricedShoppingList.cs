@@ -23,7 +23,8 @@ namespace EasyList.Proto.Core.Shopping
 
             foreach (var item in shoppingList)
             {
-                PricedShoppingListItems.Add(new PricedShoppingListItem(item));
+                if(item.IsIncluded)
+                    PricedShoppingListItems.Add(new PricedShoppingListItem(item));
             }
         }
     }
