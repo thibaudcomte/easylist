@@ -45,9 +45,9 @@ namespace EasyList.Proto.ViewModels
 
             SelectedStore = null;
 
-            SuggestionResults.Clear();
-
             var results = await _RetailersFacade.FindStoresAsync(text);
+
+            SuggestionResults.Clear();
             foreach (var result in results)
             {
                 SuggestionResults.Add(result);
