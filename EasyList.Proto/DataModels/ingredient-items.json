@@ -1,0 +1,119 @@
+﻿{
+  "ingredient_item_categories": [
+    {
+      "id": 1,
+      "name": "Epicerie sucrée"
+    },
+    {
+      "id": 2,
+      "name": "Epicerie salée"
+    },
+    {
+      "id": 3,
+      "name": "Fruits et légumes"
+    },
+    {
+      "id": 4,
+      "name": "Produits frais"
+    },
+    {
+      "id": 5,
+      "name": "Crêmerie"
+    },
+    {
+      "id": 6,
+      "name": "Boissons"
+    }
+  ],
+
+  "ingredient_items": [
+    {
+      "id": 1001,
+      "cat": 1,
+      "name": "farine",
+      "desc": "paquet de farine"
+    },
+    {
+      "id": 1002,
+      "cat": 1,
+      "name": "levure chimique",
+      "desc": "en sachets individuels"
+    },
+    {
+      "id": 2001,
+      "cat": 2,
+      "name": "olives vertes dénoyautées",
+      "desc": "en bocal avec saumure"
+    },
+    {
+      "id": 2002,
+      "cat": 2,
+      "name": "huile végétale",
+      "desc": "en bouteille"
+    },
+    {
+      "id": 2003,
+      "cat": 2,
+      "name": "quinoa",
+      "desc": "en paquet"
+    },
+    {
+      "id": 2004,
+      "cat": 2,
+      "name": "lait de coco",
+      "desc": "une brique"
+    },
+    {
+      "id": 2005,
+      "cat": 2,
+      "name": "curry en poudre"
+    },
+    {
+      "id": 2006,
+      "cat": 2,
+      "name": "sel"
+    },
+    {
+      "id": 2007,
+      "cat": 2,
+      "name": "poivre"
+    },
+    {
+      "id": 3001,
+      "cat": 3,
+      "name": "poivron rouge"
+    },
+    {
+      "id": 3002,
+      "cat": 3,
+      "name": "courgette"
+    },
+    {
+      "id": 4001,
+      "cat": 4,
+      "name": "dés de jambon"
+    },
+    {
+      "id": 5001,
+      "cat": 5,
+      "name": "oeuf",
+      "desc": "à l'unité"
+    },
+    {
+      "id": 5002,
+      "cat": 5,
+      "name": "gruyère râpé"
+    },
+    {
+      "id": 5003,
+      "cat": 5,
+      "name": "lait",
+      "desc": "une bouteille"
+    },
+    {
+      "id": 6001,
+      "cat": 6,
+      "name": "eau"
+    }
+  ]
+}

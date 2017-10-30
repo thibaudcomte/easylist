@@ -1,111 +1,119 @@
 ﻿{
-	"recipes": [
-		{
-			"title": "Cake salé au jambon et aux olives",
-			"img": "https://image.afcdn.com/recipe/20130206/48875_w600.jpg",
-			"prep": 20,
-			"cook": 45,
-			"inst": [
-				"Préchauffer le four à 180°C (thermostat 6).",
-				"Couper les olives en rondelles et le jambon en morceaux.",
-				"Verser les oeufs dans la farine et mélanger.",
-				"Ajouter le lait et l'huile puis mélanger.",
-				"Ajouter le jambon, les olives et le gruyère puis mélanger.",
-				"Ajouter la levure et, pour ne pas changer, mélanger.",
-				"Mettre le tout dans un plat à cake au préalable beurré et placer au four 45 min."
-			],
-			"ingr": [
-				{
-					"name": "farine",
-					"qty": 150,
-					"unit": "gr"
-				},
-				{
-					"name": "jambon",
-					"qty": 200,
-					"unit": "gr"
-				},
-				{
-					"name": "olives verte dénoyautées",
-					"qty": 150,
-					"unit": "gr"
-				},
-				{
-					"name": "gruyère râpé",
-					"qty": 75,
-					"unit": "gr"
-				},
-				{
-					"name": "oeufs",
-					"qty": 4
-				},
-				{
-					"name": "lait",
-					"qty": 100,
-					"unit": "ml"
-				},
-				{
-					"name": "sachet de levure chimique",
-					"qty": 1
-				},
-				{
-					"name": "huile",
-					"qty": 1,
-					"unit": "tbsp"
-				},
-				{
-					"name": "sel et poivre"
-				}
-			]
-		},
-		{
-			"title": "Risotto de quinoa",
-			"img": "https://image.afcdn.com/recipe/20170123/51248_w420h344c1cx1499cy999.jpg",
-			"prep": 20,
-			"cook": 15,
-			"inst": [
-				"Faire revenir le poivron et la courgette.",
-				"Verser le quinoa préalablement rincé.",
-				"Verser l'eau.",
-				"Verser le curry, le sel et le poivre.",
-				"Remuer.",
-				"Faire cuire 15 min.",
-				"Ajouter le lait de coco à la fin.",
-				"C'est prêt lorsqu'on voit les germes du quinoa."
-			],
-			"ingr": [
-				{
-					"name": "poivron",
-					"qty": 0.5
-				},
-				{
-					"name": "courgette",
-					"qty": 0.5
-				},
-				{
-					"name": "quinoa",
-					"qty": 1,
-					"unit": "vr"
-				},
-				{
-					"name": "curry en poudre",
-					"qty": 1,
-					"unit": "tbsp"
-				},
-				{
-					"name": "eau",
-					"qty": 1.5,
-					"unit": "vr"
-				},
-				{
-					"name": "lait de coco",
-					"qty": 250,
-					"unit": "ml"
-				},
-				{
-					"name": "sel et poivre"
-				}
-			]
-		}
-	]
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Cake salé au jambon et aux olives",
+      "img": "https://image.afcdn.com/recipe/20130206/48875_w600.jpg",
+      "prep": 20,
+      "cook": 45,
+      "inst": [
+        "Préchauffer le four à 180°C (thermostat 6).",
+        "Couper les olives en rondelles et le jambon en morceaux.",
+        "Verser les oeufs dans la farine et mélanger.",
+        "Ajouter le lait et l'huile puis mélanger.",
+        "Ajouter le jambon, les olives et le gruyère puis mélanger.",
+        "Ajouter la levure et, pour ne pas changer, mélanger.",
+        "Mettre le tout dans un plat à cake au préalable beurré et placer au four 45 min."
+      ],
+      "ingr": [
+        {
+          "id": 1001,
+          "qty": 150,
+          "unit": "gr"
+        },
+        {
+          "id": 4001,
+          "qty": 200,
+          "unit": "gr"
+        },
+        {
+          "id": 2001,
+          "qty": 150,
+          "unit": "gr"
+        },
+        {
+          "id": 5002,
+          "qty": 75,
+          "unit": "gr"
+        },
+        {
+          "id": 5001,
+          "qty": 4
+        },
+        {
+          "id": 5003,
+          "qty": 100,
+          "unit": "ml"
+        },
+        {
+          "id": 1002,
+          "qty": 1
+        },
+        {
+          "id": 2002,
+          "qty": 1,
+          "unit": "tbsp"
+        },
+        {
+          "id": 2006
+        },
+        {
+          "id": 2007
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Risotto de quinoa",
+      "img": "https://image.afcdn.com/recipe/20170123/51248_w420h344c1cx1499cy999.jpg",
+      "prep": 20,
+      "cook": 15,
+      "inst": [
+        "Faire revenir le poivron et la courgette.",
+        "Verser le quinoa préalablement rincé.",
+        "Verser l'eau.",
+        "Verser le curry, le sel et le poivre.",
+        "Remuer.",
+        "Faire cuire 15 min.",
+        "Ajouter le lait de coco à la fin.",
+        "C'est prêt lorsqu'on voit les germes du quinoa."
+      ],
+      "ingr": [
+        {
+          "id": 3001,
+          "qty": 0.5
+        },
+        {
+          "id": 3002,
+          "qty": 0.5
+        },
+        {
+          "id": 2003,
+          "qty": 1,
+          "unit": "vr"
+        },
+        {
+          "id": 2005,
+          "qty": 1,
+          "unit": "tbsp"
+        },
+        {
+          "id": 6001,
+          "qty": 1.5,
+          "unit": "vr"
+        },
+        {
+          "id": 2004,
+          "qty": 250,
+          "unit": "ml"
+        },
+        {
+          "id": 2006
+        },
+        {
+          "id": 2007
+        }
+      ]
+    }
+  ]
 }

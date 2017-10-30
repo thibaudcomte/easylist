@@ -194,6 +194,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="DataModels\recipes.json" />
+    <Content Include="DataModels\ingredient-items.json" />
     <None Include="EasyList.Proto_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace EasyList.Proto.Core.Recipes
 {
-    [DebuggerDisplay("{Title}")]
     public class Recipe
     {
         public int Id { get; set; }
@@ -32,11 +30,26 @@ namespace EasyList.Proto.Core.Recipes
         /// <summary>
         /// List of ingredients.
         /// </summary>
-        public List<Ingredient> Ingredients { get; } = new List<Ingredient>();
+        public IEnumerable<Ingredient> Ingredients => _Ingredients;
 
         /// <summary>
-        /// Instructions.
+        /// The preparation directives.
         /// </summary>
-        public List<string> Instructions { get; } = new List<string>();
+        public IEnumerable<string> Instructions => _Instructions;
+
+        private readonly List<Ingredient> _Ingredients = new List<Ingredient>();
+        private readonly List<string> _Instructions = new List<string>();
+
+        public Recipe(int id, string title, string image, int prep, int cook, 
+            IEnumerable<Ingredient> ingredients, IEnumerable<string> instructions)
+        {
+            Id = id;
+            Title = title;
+            ImageUri = new Uri(image);
+            PrepTime = prep;
+            CookTime = cook;
+            _Ingredients.AddRange(ingredients);
+            _Instructions.AddRange(instructions);
+        }
     }
 }

@@ -25,11 +25,13 @@ namespace EasyList.Proto.Core.Recipes
 
             if (@in == null)
             {
-                IngredientsContainer.Add(ingredient.Copy());
+                IngredientsContainer.Add(ingredient);
             }
             else
             {
-                @in.Quantity += ingredient.Quantity;
+                Ingredient @new = @in.IncreaseQuantity(ingredient.Quantity);
+                IngredientsContainer.Remove(@in);
+                IngredientsContainer.Add(@new);
             }
         }
 
@@ -47,11 +49,12 @@ namespace EasyList.Proto.Core.Recipes
 
             if (@in != null)
             {
-                @in.Quantity -= ingredient.Quantity;
+                Ingredient @new = @in.DecreaseQuantity(ingredient.Quantity);
+                IngredientsContainer.Remove(@in);
 
-                if (@in.Quantity <= 0.0f)
+                if (@new.Quantity > 0)
                 {
-                    IngredientsContainer.Remove(@in);
+                    IngredientsContainer.Add(@new);
                 }
             }
         }

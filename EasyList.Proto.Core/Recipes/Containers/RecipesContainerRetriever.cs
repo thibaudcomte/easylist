@@ -29,7 +29,7 @@ namespace EasyList.Proto.Core.Recipes.Containers
 
         public async Task SaveAsync()
         {
-            var ids = _recipesContainer.Select(recipe => recipe.Id).ToArray();
+            var ids = _recipesContainer.Where(recipe => recipe != null).Select(recipe => recipe.Id).ToArray();
             await _storageReaderWriter.WriteAsync(ids);
         }
 
