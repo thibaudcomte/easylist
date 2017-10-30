@@ -11,68 +11,48 @@
 
     <Page.Resources>
         <conv:RetailerToLogoConverter x:Key="RetailerToLogoConverter" />
+        <conv:NegateBooleanConverter x:Key="NegateBooleanConverter" />
         <conv:IngredientToTextConverter x:Key="IngredientToTextConverter" />
     </Page.Resources>
 
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton
-                Command="{Binding GoToOnlineShoppingCartCommand}"
-                Icon="Shop"
-                Label="Passer commande" />
-        </CommandBar>
-    </Page.BottomAppBar>
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="layoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView
             ItemsSource="{Binding RetailerShoppingSessionInfos}"
             SelectedItem="{Binding SelectedRetailerShoppingSessionInfo, Mode=TwoWay}"
-            SelectionMode="Single">
+            SelectionMode="None">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="300">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal">
+                    <Grid Width="200">
+                        <StackPanel HorizontalAlignment="Stretch">
                             <Image
-                                Width="100"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom"
+                                Height="50"
+                                HorizontalAlignment="Stretch"
                                 Source="{Binding RetailerShoppingSession.Store.Retailer, Converter={StaticResource RetailerToLogoConverter}}"
                                 Stretch="Uniform" />
-                            <TextBlock
-                                Margin="8,0,0,0"
-                                VerticalAlignment="Bottom"
-                                Text="{Binding RetailerShoppingSession.Store.Name}" />
+                            <TextBlock Margin="0,4,0,0" Text="{Binding RetailerShoppingSession.Store.Retailer.Name}" />
+                            <TextBlock Text="{Binding RetailerShoppingSession.Store.Name}" />
+                            <TextBlock Text="{Binding RetailerShoppingSession.Store.City}" />
+                            <ProgressRing
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                IsActive="{Binding IsPricingComplete, Converter={StaticResource NegateBooleanConverter}}" />
+                            <Button
+                                MinWidth="140"
+                                HorizontalAlignment="Center"
+                                Background="{StaticResource BrandColor}"
+                                Command="{Binding ElementName=layoutRoot, Path=DataContext.GoToOnlineShoppingCartCommand}"
+                                CommandParameter="{Binding}"
+                                Foreground="White"
+                                IsEnabled="{Binding IsPricingComplete}">
+                                <StackPanel Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Shop" />
+                                    <TextBlock Margin="8,0,0,0" Style="{ThemeResource SubtitleTextBlockStyle}">
+                                        <Run Text="{Binding PricedShoppingList.Price, Mode=OneWay}" />
+                                        <Run Text="€" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
-                        <ItemsControl
-                            Grid.Row="1"
-                            Margin="0,4"
-                            ItemsSource="{Binding PricedShoppingList.PricedShoppingListItems}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding ShoppingListItem.Ingredient, Converter={StaticResource IngredientToTextConverter}}" TextTrimming="CharacterEllipsis" />
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            Margin="8,0,0,0"
-                                            Text="{Binding Price, Mode=OneWay}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <TextBlock Grid.Row="2" Style="{ThemeResource SubtitleTextBlockStyle}">
-                            <Run Text="Total" />
-                            <Run Foreground="{ThemeResource AccentButtonBackground}" Text="{Binding PricedShoppingList.Price, Mode=OneWay}" />
-                            <Run Foreground="{ThemeResource AccentButtonBackground}" Text="Eur" />
-                        </TextBlock>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>

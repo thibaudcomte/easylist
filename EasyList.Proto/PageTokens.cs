@@ -28,6 +28,11 @@
         Pricing,
 
         /// <summary>
+        /// Open a web view to the retailer's online page.
+        /// </summary>
+        OnlineCart,
+
+        /// <summary>
         /// Favorite recipes.
         /// </summary>
         FavoriteRecipes,

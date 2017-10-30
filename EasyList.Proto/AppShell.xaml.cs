@@ -121,6 +121,9 @@ namespace EasyList.Proto
                     case PageTokens.Pricing:
                         navView.Header = "Comparatif des prix";
                         break;
+                    case PageTokens.OnlineCart:
+                        navView.Header = "Validation du panier";
+                        break;
                     case PageTokens.AddStore:
                         navView.Header = "Ajout d'un \"drive\"";
                         break;

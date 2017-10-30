@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Converters\IngredientToTextConverter.cs" />
     <Compile Include="Converters\ItemControlItemToPositionConverter.cs" />
+    <Compile Include="Converters\NegateBooleanConverter.cs" />
     <Compile Include="Converters\RetailerToLogoConverter.cs" />
     <Compile Include="Converters\TimeMinutesToTextConverter.cs" />
     <Compile Include="DataModels\RecipeJsonProvider.cs" />

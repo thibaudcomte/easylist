@@ -2,21 +2,27 @@
 
 namespace EasyList.Proto.Core.Shopping
 {
-    public class PricedShoppingListItem : BindableBase
+    public class PriceableShoppingListItem : BindableBase
     {
         public ShoppingListItem ShoppingListItem { get; }
 
         private float _Price;
         public float Price
         {
-            get { return _Price; }
-            set { SetProperty(ref _Price, value); }
+            get
+            {
+                return _Price;
+            }
+
+            set
+            {
+                SetProperty(ref _Price, value);
+            }
         }
 
-        public PricedShoppingListItem(ShoppingListItem shoppingListItem)
+        public PriceableShoppingListItem(ShoppingListItem shoppingListItem)
         {
             ShoppingListItem = shoppingListItem;
-            Price = 0;
         }
     }
 }

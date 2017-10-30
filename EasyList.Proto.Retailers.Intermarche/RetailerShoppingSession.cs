@@ -18,48 +18,32 @@ namespace EasyList.Proto.Retailers.Intermarche
         public float TotalPrice { get; internal set; }
     }
 
-    class RetailerShoppingSession : IRetailerShoppingSession, IDisposable
+    class RetailerShoppingSession : RetailerShoppingSessionBase
     {
-        private readonly HttpClientHandler _HttpClientHandler;
-        private readonly HttpClient _HttpClient;
         private readonly Store _Store;
         private readonly CultureInfo _CultureFR = new CultureInfo("fr-FR");
 
-        public Cookie[] Cookies => GetSessionCookies();
-
-        public IStore Store => _Store;
-
-        public RetailerShoppingSession(Store store)
+        public RetailerShoppingSession(Store store) : base(store)
         {
-            _HttpClientHandler = new HttpClientHandler();
-            _HttpClient = new HttpClient(_HttpClientHandler);
             _Store = store;
         }
 
-        public async Task<PricedShoppingList> PriceShoppingListAsync(ShoppingList list)
+        public override async Task PriceShoppingListAsync(PriceableShoppingList list)
         {
-            PricedShoppingList pricedShoppingList = new PricedShoppingList(list, _Store);
-            await PriceShoppingListAsync(pricedShoppingList);
-            return pricedShoppingList;
-        }
+            await InitializeAsync();
 
-        public async Task PriceShoppingListAsync(PricedShoppingList list)
-        {
-            await InitializeTransactionAsync();
-
-            foreach (var item in list.PricedShoppingListItems)
+            foreach (var item in list)
             {
-                if (item.ShoppingListItem.IsIncluded)
-                {
-                    CartInfo cartInfo = await AddItemToCart(item.ShoppingListItem);
-                    item.Price = cartInfo.ItemPrice;
-                    list.Price = cartInfo.TotalPrice;
-                }
+                CartInfo cartInfo = await AddItemToCart(item.ShoppingListItem);
+                item.Price = cartInfo.ItemPrice;
+                list.Price = cartInfo.TotalPrice;
             }
         }
 
-        private async Task InitializeTransactionAsync()
+        protected override async Task InitializeAsync()
         {
+            await base.InitializeAsync();
+
             var response = await _HttpClient.GetAsync(new Uri($"https://drive.intermarche.com/{_Store.Urlh}"));
             if (!response.IsSuccessStatusCode)
             {
@@ -103,9 +87,11 @@ namespace EasyList.Proto.Retailers.Intermarche
             }
         }
 
-        private Cookie[] GetSessionCookies()
+        protected override Cookie[] GetSessionCookies()
         {
-            CookieCollection cookieCollection = _HttpClientHandler.CookieContainer.GetCookies(new Uri("https://drive.intermarche.com"));
+            CookieCollection cookieCollection = _HttpClientHandler.CookieContainer.GetCookies(
+                new Uri("https://drive.intermarche.com"));
+
             List<Cookie> cookies = new List<Cookie>();
 
             foreach (Cookie cookie in cookieCollection)
@@ -115,13 +101,5 @@ namespace EasyList.Proto.Retailers.Intermarche
 
             return cookies.ToArray();
         }
-
-        public void Dispose()
-        {
-            _HttpClient.Dispose();
-            _HttpClientHandler.Dispose();
-        }
-
-        
     }
 }

@@ -1,8 +1,5 @@
 ﻿using EasyList.Proto.Core.Shopping;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyList.Proto.Core.Retailers
@@ -11,7 +8,6 @@ namespace EasyList.Proto.Core.Retailers
     {
         IStore Store { get; }
         Cookie[] Cookies { get; }
-        Task<PricedShoppingList> PriceShoppingListAsync(ShoppingList list);
-        Task PriceShoppingListAsync(PricedShoppingList list);
+        Task PriceShoppingListAsync(PriceableShoppingList list);
     }
 }

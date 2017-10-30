@@ -78,48 +78,34 @@ namespace EasyList.Proto.Retailers.Carrefour
         }
     }
 
-    class RetailerShoppingSession : IRetailerShoppingSession, IDisposable
+    class RetailerShoppingSession : RetailerShoppingSessionBase
     {
-        private readonly HttpClientHandler _HttpClientHandler;
-        private readonly HttpClient _HttpClient;
         private readonly Store _Store;
 
-        public Cookie[] Cookies => GetSessionCookies();
-
-        public IStore Store => _Store;
-
-        public RetailerShoppingSession(Store store)
+        public RetailerShoppingSession(Store store) : base(store)
         {
-            _HttpClientHandler = new HttpClientHandler();
-            _HttpClient = new HttpClient(_HttpClientHandler);
             _Store = store;
         }
 
-        public async Task<PricedShoppingList> PriceShoppingListAsync(ShoppingList list)
+        public override async Task PriceShoppingListAsync(PriceableShoppingList list)
         {
-            PricedShoppingList pricedShoppingList = new PricedShoppingList(list, Store);
-            await PriceShoppingListAsync(pricedShoppingList);
-            return pricedShoppingList;
-        }
+            await InitializeAsync();
 
-        public async Task PriceShoppingListAsync(PricedShoppingList list)
-        {
-            await InitializeTransactionAsync();
-
-            foreach (var item in list.PricedShoppingListItems)
+            foreach (var item in list)
             {
-                if (item.ShoppingListItem.IsIncluded)
-                {
-                    CartInfo cartInfo = await AddItemToCart(item.ShoppingListItem);
-                    item.Price = cartInfo.ItemPrice;
-                    list.Price = cartInfo.TotalPrice;
-                }
+                CartInfo cartInfo = await AddItemToCart(item.ShoppingListItem);
+                item.Price = cartInfo.ItemPrice;
+                list.Price = cartInfo.TotalPrice;
             }
         }
 
-        private async Task InitializeTransactionAsync()
+        protected override async Task InitializeAsync()
         {
-            _HttpClientHandler.CookieContainer.Add(new Uri("https://courses-en-ligne.carrefour.fr/"), new Cookie("store", _Store.Id.ToString()));
+            await base.InitializeAsync();
+
+            _HttpClientHandler.CookieContainer.Add(new Uri("https://courses-en-ligne.carrefour.fr/"), 
+                new Cookie("store", _Store.Id.ToString()));
+
             var response = await _HttpClient.GetAsync(new Uri($"https://courses-en-ligne.carrefour.fr/"));
             if (!response.IsSuccessStatusCode)
             {
@@ -135,7 +121,8 @@ namespace EasyList.Proto.Retailers.Carrefour
 
         private async Task<ProductInfo> GetProductInfoAsync(ShoppingListItem shoppingListItem)
         {
-            string content = await _HttpClient.GetStringAsync(new Uri($"https://courses-en-ligne.carrefour.fr/search?q={WebUtility.UrlEncode(shoppingListItem.Ingredient.Name)}"));
+            string content = await _HttpClient.GetStringAsync(
+                new Uri($"https://courses-en-ligne.carrefour.fr/search?q={WebUtility.UrlEncode(shoppingListItem.Ingredient.Name)}"));
             var parser = new AngleSharp.Parser.Html.HtmlParser();
             var document = parser.Parse(content);
             var cellSelector = "div.cd-ProductInfosActions.cd-ProductData";
@@ -185,7 +172,7 @@ namespace EasyList.Proto.Retailers.Carrefour
             }
         }
 
-        private Cookie[] GetSessionCookies()
+        protected override Cookie[] GetSessionCookies()
         {
             CookieCollection cookieCollection = _HttpClientHandler.CookieContainer.GetCookies(new Uri("https://courses-en-ligne.carrefour.fr"));
             List<Cookie> cookies = new List<Cookie>();
@@ -198,10 +185,6 @@ namespace EasyList.Proto.Retailers.Carrefour
             return cookies.ToArray();
         }
 
-        public void Dispose()
-        {
-            _HttpClient.Dispose();
-            _HttpClientHandler.Dispose();
-        }
+        
     }
 }

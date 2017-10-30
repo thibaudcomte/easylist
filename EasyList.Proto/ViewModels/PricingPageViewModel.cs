@@ -1,6 +1,7 @@
 ﻿using EasyList.Proto.Core.Retailers;
 using EasyList.Proto.Core.Shopping;
 using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using System.Collections.Generic;
@@ -10,20 +11,29 @@ using System.Windows.Input;
 
 namespace EasyList.Proto.ViewModels
 {
-    class RetailerShoppingSessionInfo
+    class RetailerShoppingSessionInfo : BindableBase
     {
         public IRetailerShoppingSession RetailerShoppingSession { get; }
-        public PricedShoppingList PricedShoppingList { get; }
+        public PriceableShoppingList PricedShoppingList { get; }
+
+        private bool _IsPricingComplete;
+        public bool IsPricingComplete
+        {
+            get { return _IsPricingComplete; }
+            set { SetProperty(ref _IsPricingComplete, value); }
+        }
 
         public RetailerShoppingSessionInfo(IRetailerShoppingSession retailerShoppingSession, ShoppingList shoppingList)
         {
             RetailerShoppingSession = retailerShoppingSession;
-            PricedShoppingList = new PricedShoppingList(shoppingList, retailerShoppingSession.Store);
+            PricedShoppingList = new PriceableShoppingList(shoppingList, retailerShoppingSession.Store);
         }
 
-        public Task PriceShoppingListAsync()
+        public async Task PriceShoppingListAsync()
         {
-            return RetailerShoppingSession.PriceShoppingListAsync(PricedShoppingList);
+            IsPricingComplete = false;
+            await RetailerShoppingSession.PriceShoppingListAsync(PricedShoppingList);
+            IsPricingComplete = true;
         }
     }
 
@@ -31,14 +41,7 @@ namespace EasyList.Proto.ViewModels
     {
         public ObservableCollection<RetailerShoppingSessionInfo> RetailerShoppingSessionInfos { get; }
 
-        private RetailerShoppingSessionInfo _SelectedRetailerShoppingSessionInfo;
-        public RetailerShoppingSessionInfo SelectedRetailerShoppingSessionInfo
-        {
-            get { return _SelectedRetailerShoppingSessionInfo; }
-            set { SetProperty(ref _SelectedRetailerShoppingSessionInfo, value); }
-        }
-
-        public ICommand GoToOnlineShoppingCartCommand { get; }
+        public DelegateCommand<RetailerShoppingSessionInfo> GoToOnlineShoppingCartCommand { get; }
 
         public PricingPageViewModel(ShoppingFacade shoppingFacade, RetailersFacade retailersFacade, INavigationService navigationService)
         {
@@ -50,10 +53,10 @@ namespace EasyList.Proto.ViewModels
                     store.Retailer.Shopper.CreateRetailerShoppingSession(store), shoppingFacade.ShoppingList));
             }
 
-            GoToOnlineShoppingCartCommand = new DelegateCommand(() =>
+            GoToOnlineShoppingCartCommand = new DelegateCommand<RetailerShoppingSessionInfo>(sessionInfo =>
             {
-                navigationService.Navigate("OnlineCart", SelectedRetailerShoppingSessionInfo);
-            }, () => { return SelectedRetailerShoppingSessionInfo != null; }).ObservesProperty(() => SelectedRetailerShoppingSessionInfo);
+                navigationService.Navigate(PageTokens.OnlineCart.ToString(), sessionInfo);
+            });
         }
 
         public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)

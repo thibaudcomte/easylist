@@ -72,18 +72,6 @@ namespace EasyList.Proto.Core.Misc.Mvvm
         }
 
         /// <summary>
-        /// Notifies listeners that a property value has changed.
-        /// </summary>
-        /// <param name="propertyName">Name of the property used to notify listeners. This
-        /// value is optional and can be provided automatically when invoked from compilers
-        /// that support <see cref="CallerMemberNameAttribute"/>.</param>
-        [Obsolete("Please use the new RaisePropertyChanged method. This method will be removed to comply wth .NET coding standards. If you are overriding this method, you should overide the OnPropertyChanged(PropertyChangedEventArgs args) signature instead.")]
-        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
         /// Raises this object's PropertyChanged event.
         /// </summary>
         /// <param name="args">The PropertyChangedEventArgs</param>
