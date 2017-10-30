@@ -5,7 +5,7 @@ namespace EasyList.Proto.Retailers.Intermarche
     public class Retailer : IRetailer
     {
         public RetailerLocator Locator { get; }
-        public RetailerSettingsBase Settings { get; }
+        public RetailerSettingsBase<Retailer, Store> Settings { get; }
         public RetailerShopper Shopper { get; }
 
         IRetailerLocator IRetailer.Locator => Locator;
@@ -14,7 +14,7 @@ namespace EasyList.Proto.Retailers.Intermarche
 
         public string Name => "Intermarche";
 
-        public Retailer(RetailerSettingsBase retailerSettings)
+        public Retailer(RetailerSettingsBase<Retailer, Store> retailerSettings)
         {
             Locator = new RetailerLocator(this);
             Settings = retailerSettings;

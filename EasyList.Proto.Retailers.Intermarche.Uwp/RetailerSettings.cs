@@ -1,4 +1,5 @@
-﻿using EasyList.Proto.Core.Storage;
+﻿using EasyList.Proto.Core.Retailers;
+using EasyList.Proto.Core.Storage;
 using EasyList.Proto.Core.Uwp.Storage.LocalStorage;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,11 +14,11 @@ namespace EasyList.Proto.Retailers.Intermarche.Uwp
         public Store[] UserStores { get; set; }
     }
 
-    public class RetailerSettings : RetailerSettingsBase
+    public class RetailerSettings : RetailerSettingsBase<Retailer, Store>
     {
         private readonly IStorageReaderWriter _StorageReaderWriter;
 
-        public RetailerSettings() : base()
+        public RetailerSettings()
         {
             _StorageReaderWriter = new LocalStorageReaderWriter("intermarche");
         }

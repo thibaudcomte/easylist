@@ -6,8 +6,12 @@ namespace EasyList.Proto.Core.Retailers
     /// <summary>
     /// Serves as a base implementation to platform-specific ones.
     /// </summary>
-    public abstract class RetailerSettingsBase<TStore> : IRetailerSettings where TStore : IStore
+    public abstract class RetailerSettingsBase<TRetailer, TStore> : IRetailerSettings
+        where TRetailer : IRetailer
+        where TStore : IStore
     {
+        public TRetailer Retailer { get; set; }
+
         protected readonly List<TStore> _UserStores;
         IEnumerable<IStore> IRetailerSettings.UserStores => _UserStores as IEnumerable<IStore>;
 
