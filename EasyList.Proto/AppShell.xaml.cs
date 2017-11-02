@@ -37,6 +37,7 @@ namespace EasyList.Proto
         private readonly INavigationService navigationService;
         private readonly IEventAggregator eventAggregator;
         private readonly ISessionStateService sessionStateService;
+        private List<NavigationEntry> navigationEntries;
 
         public AppShell(INavigationService navigationService, IEventAggregator eventAggregator,
             ISessionStateService sessionStateService)
@@ -63,7 +64,7 @@ namespace EasyList.Proto
 
         private void UpdateNavigationViewMenuItems()
         {
-            var navigationEntries = new List<NavigationEntry>
+            navigationEntries = new List<NavigationEntry>
             {
                 new NavigationEntry("Toutes les recettes", "\ued56", PageTokens.Recipes),
                 new NavigationEntry("Votre sélection", "\uf0e3", PageTokens.SelectedRecipes),
@@ -72,25 +73,13 @@ namespace EasyList.Proto
                 new NavigationEntry("Vos drives", "\uec47", PageTokens.Stores)
             };
 
-            foreach (var navigationEntry in navigationEntries)
-            {
-                navView.MenuItems.Add(new NavigationViewItem
-                {
-                    Icon = new FontIcon { Glyph = navigationEntry.Glyph },
-                    Content = navigationEntry.Name,
-                    Tag = navigationEntry.Token
-                });
-            }
+            hamburgerMenuControl.ItemsSource = navigationEntries;
         }
 
-        private void OnNavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void OnMenuItemClick(object sender, ItemClickEventArgs e)
         {
-            NavigationViewItem item = args.SelectedItem as NavigationViewItem;
-            if (item == null)
-                return;
-
-            navigationService.Navigate(item.Tag.ToString(), null);
-            navView.Header = item.Content.ToString();
+            var menuItem = e.ClickedItem as NavigationEntry;
+            navigationService.Navigate(menuItem.Token.ToString(), null);
         }
 
         private void OnNavigationStateChanged(NavigationStateChangedEventArgs args)
@@ -99,36 +88,9 @@ namespace EasyList.Proto
 
             if (Enum.TryParse(args.Sender.Content.GetType().Name.Replace("Page", string.Empty), out currentPageToken))
             {
-                var currentMenuItem = navView.MenuItems.FirstOrDefault(item =>
-                {
-                    NavigationViewItem menuItem = item as NavigationViewItem;
-                    PageTokens menuItemToken = (PageTokens)menuItem.Tag;
-                    return menuItemToken == currentPageToken;
-                }) as NavigationViewItem;
-
-                navView.SelectedItem = currentMenuItem;
-                navView.Header = currentMenuItem?.Content;
-
-                switch (currentPageToken)
-                {
-                    case PageTokens.RecipeDetails:
-                        {
-                            RecipeDetailsPage recipeDetailsPage = args.Sender.Content as RecipeDetailsPage;
-                            RecipeDetailsPageViewModel recipeDetailsPageViewModel = recipeDetailsPage.DataContext as RecipeDetailsPageViewModel;
-                            navView.Header = recipeDetailsPageViewModel.Recipe.Title;
-                        }
-                        break;
-                    case PageTokens.Pricing:
-                        navView.Header = "Comparatif des prix";
-                        break;
-                    case PageTokens.OnlineCart:
-                        navView.Header = "Validation du panier";
-                        break;
-                    case PageTokens.AddStore:
-                        navView.Header = "Ajout d'un \"drive\"";
-                        break;
-                }
-
+                var entry = navigationEntries.FirstOrDefault(e => e.Token == currentPageToken);
+                hamburgerMenuControl.SelectedItem = entry;
+                hamburgerMenuControl.SelectedIndex = navigationEntries.IndexOf(entry);
             }
         }
     }

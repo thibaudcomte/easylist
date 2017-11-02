@@ -2,51 +2,67 @@
     x:Class="EasyList.Proto.Views.PricingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:conv="using:EasyList.Proto.Converters"
+    xmlns:Converters="using:EasyList.Proto.Converters"
+    xmlns:UwpToolkitConverters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    RequestedTheme="Light"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <conv:RetailerToLogoConverter x:Key="RetailerToLogoConverter" />
-        <conv:NegateBooleanConverter x:Key="NegateBooleanConverter" />
-        <conv:IngredientToTextConverter x:Key="IngredientToTextConverter" />
+        <UwpToolkitConverters:BoolNegationConverter x:Key="BoolNegationConverter" />
+        <UwpToolkitConverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Converters:RetailerToLogoConverter x:Key="RetailerToLogoConverter" />
     </Page.Resources>
 
-    <Grid x:Name="layoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="layoutRoot" Background="{StaticResource BrandCreamBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="48,0"
+                VerticalAlignment="Center"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                Text="Préparation du panier" />
+        </StackPanel>
         <GridView
+            Grid.Row="1"
+            Margin="20"
             ItemsSource="{Binding RetailerShoppingSessionInfos}"
             SelectedItem="{Binding SelectedRetailerShoppingSessionInfo, Mode=TwoWay}"
             SelectionMode="None">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="200">
+                    <Grid Width="160">
                         <StackPanel HorizontalAlignment="Stretch">
                             <Image
-                                Height="50"
-                                HorizontalAlignment="Stretch"
+                                Height="24"
+                                HorizontalAlignment="Left"
                                 Source="{Binding RetailerShoppingSession.Store.Retailer, Converter={StaticResource RetailerToLogoConverter}}"
                                 Stretch="Uniform" />
-                            <TextBlock Margin="0,4,0,0" Text="{Binding RetailerShoppingSession.Store.Retailer.Name}" />
-                            <TextBlock Text="{Binding RetailerShoppingSession.Store.Name}" />
+                            <TextBlock
+                                Margin="0,4,0,0"
+                                FontWeight="SemiBold"
+                                Text="{Binding RetailerShoppingSession.Store.Name}" />
                             <TextBlock Text="{Binding RetailerShoppingSession.Store.City}" />
-                            <ProgressRing
-                                Margin="4"
-                                HorizontalAlignment="Center"
-                                IsActive="{Binding IsPricingComplete, Converter={StaticResource NegateBooleanConverter}}" />
                             <Button
-                                MinWidth="140"
-                                HorizontalAlignment="Center"
+                                MinWidth="100"
+                                Margin="0,4,0,0"
                                 Background="{StaticResource BrandColor}"
-                                Command="{Binding ElementName=layoutRoot, Path=DataContext.GoToOnlineShoppingCartCommand}"
+                                Command="{Binding DataContext.GoToOnlineShoppingCartCommand, ElementName=layoutRoot}"
                                 CommandParameter="{Binding}"
                                 Foreground="White"
                                 IsEnabled="{Binding IsPricingComplete}">
                                 <StackPanel Orientation="Horizontal">
-                                    <SymbolIcon Symbol="Shop" />
-                                    <TextBlock Margin="8,0,0,0" Style="{ThemeResource SubtitleTextBlockStyle}">
+                                    <Grid>
+                                        <ProgressRing Foreground="White" IsActive="{Binding IsPricingComplete, Converter={StaticResource BoolNegationConverter}}" />
+                                        <SymbolIcon Symbol="Shop" Visibility="{Binding IsPricingComplete, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                    </Grid>
+                                    <TextBlock Margin="8,0,0,0" VerticalAlignment="Center">
                                         <Run Text="{Binding PricedShoppingList.Price, Mode=OneWay}" />
                                         <Run Text="€" />
                                     </TextBlock>

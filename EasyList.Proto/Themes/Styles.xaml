@@ -5,11 +5,38 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <SolidColorBrush x:Key="BrandColor">#FC450F</SolidColorBrush>
-    <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground">#FC450F</SolidColorBrush>
+    <SolidColorBrush x:Key="BrandColor" Color="#FFFC450F" />
+    <SolidColorBrush x:Key="BrandCreamBackground" Color="#FFFAFAFA" />
 
     <Style TargetType="GridViewItem">
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
     </Style>
+
+    <!--  Resources for Windows.UI.Xaml.Controls.CheckBox  -->
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundStrokeUnchecked" Color="DarkGray" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundStrokeUncheckedPointerOver" Color="DarkGray" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundStrokeUncheckedPressed" Color="DarkGray" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundStrokeUncheckedDisabled" Color="DarkGray" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundStrokeChecked" ResourceKey="SystemControlHighlightTransparentBrush" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundStrokeCheckedPointerOver" ResourceKey="SystemControlHighlightBaseHighBrush" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundStrokeCheckedPressed" ResourceKey="SystemControlHighlightTransparentBrush" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundStrokeCheckedDisabled" ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundFillUnchecked" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundFillUncheckedPointerOver" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundFillUncheckedPressed" ResourceKey="SystemControlBackgroundBaseMediumBrush" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundFillUncheckedDisabled" ResourceKey="SystemControlTransparentBrush" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="Gray" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillCheckedPointerOver" Color="LightGray" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillCheckedPressed" Color="DarkGray" />
+    <StaticResource x:Key="CheckBoxCheckBackgroundFillCheckedDisabled" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundUnchecked" ResourceKey="SystemControlHighlightAltChromeWhiteBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundUncheckedPointerOver" ResourceKey="SystemControlHighlightAltChromeWhiteBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundUncheckedPressed" ResourceKey="SystemControlHighlightAltChromeWhiteBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundUncheckedDisabled" ResourceKey="SystemControlHighlightAltChromeWhiteBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundChecked" ResourceKey="SystemControlHighlightAltChromeWhiteBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundCheckedPointerOver" ResourceKey="SystemControlForegroundChromeWhiteBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundCheckedPressed" ResourceKey="SystemControlForegroundChromeWhiteBrush" />
+    <StaticResource x:Key="CheckBoxCheckGlyphForegroundCheckedDisabled" ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
 
 </ResourceDictionary>

@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 
 namespace EasyList.Proto.Converters
 {
-    class TimeMinutesToTextConverter : IValueConverter
+    public class TimeMinutesToTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -17,7 +17,7 @@ namespace EasyList.Proto.Converters
             int hours = duration / 60;
             int minutes = duration % 60;
 
-            return $"{hours}h{minutes}";
+            return $"{hours}:{minutes}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

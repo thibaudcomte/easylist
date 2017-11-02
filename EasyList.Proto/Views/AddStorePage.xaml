@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    RequestedTheme="Light"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -22,13 +23,23 @@
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{StaticResource BrandCreamBackground}">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="48,0"
+                    VerticalAlignment="Center"
+                    Style="{ThemeResource TitleTextBlockStyle}"
+                    Text="Ajouter un drive" />
+            </StackPanel>
             <AutoSuggestBox
+                Grid.Row="1"
+                Margin="20"
                 ItemsSource="{Binding SuggestionResults}"
                 PlaceholderText="Saisir la ville ou le code postal"
                 QueryIcon="Find"
@@ -67,10 +78,15 @@
                         </Grid>
                     </DataTemplate>
                 </AutoSuggestBox.ItemTemplate>
+                <AutoSuggestBox.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="4" />
+                    </Style>
+                </AutoSuggestBox.ItemContainerStyle>
             </AutoSuggestBox>
             <ListView
-                Grid.Row="1"
-                Margin="0,12"
+                Grid.Row="2"
+                Margin="20,0"
                 ItemsSource="{Binding SearchResults}"
                 SelectedItem="{Binding SelectedStore, Mode=TwoWay}">
                 <ListView.ItemTemplate>
@@ -99,6 +115,11 @@
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="0,10" />
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
     </Grid>

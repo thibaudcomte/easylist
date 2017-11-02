@@ -2,26 +2,61 @@
     x:Class="EasyList.Proto.AppShell"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:EasyList.Proto"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="using:EasyList.Proto.Views"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <NavigationView
-            x:Name="navView"
-            CompactModeThresholdWidth="1"
-            ExpandedModeThresholdWidth="560"
-            IsSettingsVisible="False"
-            OpenPaneLength="280"
-            SelectionChanged="OnNavigationViewSelectionChanged">
+    <Page.Resources>
+        <DataTemplate x:Key="HamburgerMenuItem" x:DataType="local:NavigationEntry">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <FontIcon
+                    Grid.Column="0"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="16"
+                    Foreground="White"
+                    Glyph="{x:Bind Glyph}" />
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="White"
+                    Text="{x:Bind Name}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="HamburgerMenuTemplate">
+            <Grid>
+                <Ellipse
+                    Width="32"
+                    Height="32"
+                    Fill="{StaticResource BrandColor}" />
+                <FontIcon
+                    Margin="4"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="16"
+                    Foreground="White"
+                    Glyph="&#xE700;" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
 
-            <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox QueryIcon="Find" />
-            </NavigationView.AutoSuggestBox>
-
-            <Border x:Name="border" Padding="12,0,0,0" />
-
-        </NavigationView>
+    <Grid>
+        <controls:HamburgerMenu
+            x:Name="hamburgerMenuControl"
+            DisplayMode="Overlay"
+            HamburgerMenuTemplate="{StaticResource HamburgerMenuTemplate}"
+            IsPaneOpen="False"
+            ItemClick="OnMenuItemClick"
+            ItemTemplate="{StaticResource HamburgerMenuItem}"
+            OpenPaneLength="220"
+            PaneBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Border x:Name="border" />
+        </controls:HamburgerMenu>
     </Grid>
 </Page>

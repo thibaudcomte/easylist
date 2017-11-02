@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace EasyList.Proto.Core.Recipes
 {
@@ -12,6 +14,14 @@ namespace EasyList.Proto.Core.Recipes
             Id = id;
             Name = name;
         }
+    }
+
+    public class IngredientItemCategoryEqualityComparer : IEqualityComparer<IngredientItemCategory>
+    {
+        public bool Equals(IngredientItemCategory x, IngredientItemCategory y)
+            => x.Id == y.Id && x.Name == y.Name;
+
+        public int GetHashCode(IngredientItemCategory cat) => cat.Id;
     }
 
     public class IngredientItem

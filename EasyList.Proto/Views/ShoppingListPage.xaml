@@ -6,7 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
+    xmlns:vm="using:EasyList.Proto.ViewModels"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
+    RequestedTheme="Light"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -22,12 +24,44 @@
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding ShoppingList}">
+    <Grid Background="{StaticResource BrandCreamBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="48,0"
+                VerticalAlignment="Center"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                Text="Liste des courses" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding ShoppingListCategoryGroups}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox Content="{Binding Ingredient, Converter={StaticResource IngredientToTextConverter}}" IsChecked="{Binding IsIncluded, Mode=TwoWay}" />
+                        <StackPanel>
+                            <StackPanel
+                                Padding="20"
+                                Background="White"
+                                Orientation="Horizontal">
+                                <SymbolIcon Symbol="Shop" />
+                                <TextBlock
+                                    Margin="10,0"
+                                    FontWeight="SemiBold"
+                                    Text="{Binding Category.Name}" />
+                            </StackPanel>
+                            <ItemsControl ItemsSource="{Binding ShoppingListItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox
+                                            Margin="20,4"
+                                            Content="{Binding Ingredient, Converter={StaticResource IngredientToTextConverter}}"
+                                            IsChecked="{Binding IsIncluded, Mode=TwoWay}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
